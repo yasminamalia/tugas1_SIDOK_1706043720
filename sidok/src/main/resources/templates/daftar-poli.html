@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Poli</title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+
+<div class="container-fluid">
+    <h2 style="text-align: center">Sistem Informasi Dokter</h2>
+</div>
+<div class="card text-black mb-3">
+    <div class="card-header bg-dark text-white">Daftar poli</div>
+    <div class="card-body" style="width: auto">
+        <table>
+            <thead>
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col">Nama</th>
+                <th scope="col">Lokasi</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="poli, iterationStatus : *{poliList}">
+                <td style="color: black" th:text="${iterationStatus.count}"> </td>
+                <td style="color: black">
+                    <a th:text="${poli.nama}" th:href="@{/poli/} + ${poli.idPoli}"> </a>
+                </td>
+                <td style="color: black" th:text="${poli.lokasi}"> </td>
+                <td>
+                    <div class="row justify-content-between">
+                        <form th:action="@{/poli/update/} + ${poli.idPoli}" method="GET">
+                            <button type="submit" class="btn btn-sm btn-dark btn-primary" style="color: white">ubah</button>
+                        </form>
+                        <form th:action="@{/poli/delete/} + ${poli.idPoli}" method="GET">
+                            <button type="submit" class="btn btn-sm btn-danger btn-primary" style="color: white">hapus</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <form th:action="@{/poli/tambah}" style="align-content: end" METHOD="GET">
+            <button type="submit" class="btn btn-sm btn-dark btn-primary" style="color: white">Tambah Poli</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

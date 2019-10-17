@@ -10,36 +10,36 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "jadwal_jaga")
-public class Jadwal_Jaga implements Serializable {
+@Table(name = "jadwalJaga")
+public class JadwalJagaModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idJadwal;
 
     @NotNull
-    @Size(255)
+    @Size(max = 255)
     @Column(name = "hari", nullable = false)
     private String hari;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "id_poli", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "idPoli", referencedColumnName = "idPoli", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-    private Poli poli;
+    private PoliModel listPoli;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "id_dokter", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "idDokter", referencedColumnName = "idDokter", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-    private Dokter dokter;
+    private DokterModel listDokter;
 
-    //Getter and Setter
+    //Setter dan Getter
     public Long getIdJadwal() {
-        return id;
+        return idJadwal;
     }
 
     public void setIdJadwal(Long idJadwal) {
-        this.id = idJadwal;
+        this.idJadwal = idJadwal;
     }
 
     public String getHari() {
@@ -48,5 +48,21 @@ public class Jadwal_Jaga implements Serializable {
 
     public void setHari(String hari) {
         this.hari = hari;
+    }
+
+    public PoliModel getListPoli() {
+        return listPoli;
+    }
+
+    public void setListPoli(PoliModel listPoli) {
+        this.listPoli = listPoli;
+    }
+
+    public DokterModel getListDokter() {
+        return listDokter;
+    }
+
+    public void setListDokter(DokterModel listDokter) {
+        this.listDokter = listDokter;
     }
 }

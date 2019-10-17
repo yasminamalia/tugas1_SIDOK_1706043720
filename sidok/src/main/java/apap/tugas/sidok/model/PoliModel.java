@@ -8,39 +8,39 @@ import java.util.List;
 
 @Entity
 @Table(name = "poli")
-public class Poli implements Serializable {
+public class PoliModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idPoli;
 
     @NotNull
-    @Size(255)
+    @Size(max = 255)
     @Column(name = "nama")
     private String nama;
 
     @NotNull
-    @Size(255)
+    @Size(max = 255)
     @Column(name = "lokasi")
     private String lokasi;
 
-    @OneToMany(mappedBy = "jadwal_jaga", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Jadwal_Jaga> listJadwalJaga;
+    @OneToMany(mappedBy = "listPoli", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<JadwalJagaModel> listJadwalJaga;
 
-    //Getter and Setter
+    //Setter dan Getter
     public Long getIdPoli() {
-        return id;
+        return idPoli;
     }
 
     public void setIdPoli(Long idPoli) {
-        this.id = idPoli;
+        this.idPoli = idPoli;
     }
 
-    public String getNamaPoli() {
+    public String getNama() {
         return nama;
     }
 
-    public void setNamaPoli(String namaPoli) {
-        this.nama = namaPoli;
+    public void setNama(String nama) {
+        this.nama = nama;
     }
 
     public String getLokasi() {
@@ -49,5 +49,13 @@ public class Poli implements Serializable {
 
     public void setLokasi(String lokasi) {
         this.lokasi = lokasi;
+    }
+
+    public List<JadwalJagaModel> getListJadwalJaga() {
+        return listJadwalJaga;
+    }
+
+    public void setListJadwalJaga(List<JadwalJagaModel> listJadwalJaga) {
+        this.listJadwalJaga = listJadwalJaga;
     }
 }

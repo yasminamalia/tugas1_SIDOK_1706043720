@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Detail Dokter</title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="container-fluid align-content-center">
+    <div class="card">
+        <div class="card-header">
+            <h2>Detail Dokter</h2>
+        </div>
+        <div class="card-body">
+            <h3 th:text="'Nama: '+${dokter.id_dokter}"></h3>
+            <h3 th:text="'NIP: '+${dokter.nip}"></h3>
+            <h3 th:text="'NIK: '+${dokter.nik}"></h3>
+            <h3 th:text="'Tempat Lahir '+${dokter.tempat_lahir}"></h3>
+            <h3 th:text="'Tanggal Lahir: '+${dokter.tanggal_lahir}"></h3>
+            <h3 th:text="'Jenis Kelamin: '+${dokter.jenis_kelamin} == 1 ? 'Laki-Laki' : 'Perempuan'"></h3>
+            <h3 th:text="'Spesialisasi: '+${dokter.listSpesialisasi[0].name}">
+                <ul>
+                    <li>spesialisasi 1</li>
+                </ul>
+            </h3>
+        </div>
+    </div>
+</div>
+</body>
+</html>

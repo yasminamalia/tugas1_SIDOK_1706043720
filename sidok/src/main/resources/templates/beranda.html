@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Home</title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+
+<div class="container-fluid">
+<h2 style="text-align: center">Sistem Informasi Dokter</h2>
+</div>
+<div class="card text-black mb-3">
+    <div class="card-header bg-dark text-white">Daftar Dokter</div>
+    <div class="card-body" style="width: auto">
+        <table>
+            <thead>
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col">Nama</th>
+                <th scope="col">NIP</th>
+                <th scope="col">NIK</th>
+                <th scope="col">Jenis Kelamin</th>
+                <th scope="col">Spesialisasi</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="dokter, iterationStatus : *{dokterList}">
+                    <td style="color: black" th:text="${iterationStatus.count}"> </td>
+                    <td style="color: black">
+                        <a th:text="${dokter.nama}" th:href="@{/dokter/} + ${dokter.nik}"> </a>
+                    </td>
+                    <td style="color: black" th:text="${dokter.nip}"> </td>
+                    <td style="color: black" th:text="${dokter.nik}"> </td>
+                    <td style="color: black" th:text="${dokter.jenis_kelamin} == 1 ? 'Laki-Laki' : 'Perempuan'"> </td>
+                    <td style="color: black" th:text="${dokter.listSpesialisasi[0].nama}"> </td>
+                    <td>
+                        <div class="row justify-content-between">
+                            <form th:action="@{/jadwal/tambah/} + ${dokter.nip}" method="GET">
+                                <button type="submit" class="btn btn-sm btn-primary" style="background-color: midnightblue; color: white; padding-left: 1px">tambah jadwal</button>
+                            </form>
+                            <form th:action="@{/dokter/update/} + ${dokter.idDokter}" method="GET">
+                                <button type="submit" class="btn btn-sm btn-dark btn-primary" style="color: white">ubah</button>
+                            </form>
+                            <form th:action="@{/dokter/delete/} + ${dokter.idDokter}" method="GET">
+                                <button type="submit" class="btn btn-sm btn-danger btn-primary" style="color: white">hapus</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <form th:action="@{/dokter/tambah}" style="align-content: end" METHOD="GET">
+            <button type="submit" class="btn btn-sm btn-dark btn-primary" style="color: white">Tambah Dokter</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

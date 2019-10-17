@@ -1,5 +1,7 @@
 package apap.tugas.sidok.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -8,11 +10,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name="dokter")
-public class Dokter implements Serializable {
+@Table(name = "dokter")
+public class DokterModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idDokter;
 
     @NotNull
     @Size(max=255)
@@ -30,31 +32,37 @@ public class Dokter implements Serializable {
     private String nik;
 
     @NotNull
-    @Column(name = "tanggal_lahir", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "tanggalLahir", nullable = false)
     private LocalDate tanggal_lahir;
 
     @NotNull
     @Size(max=255)
-    @Column(name = "tempat_lahir", nullable = false)
+    @Column(name = "tempatLahir", nullable = false)
     private String tempat_lahir;
 
     @NotNull
-    @Column(name = "jenis_kelamin", nullable = false)
+    @Column(name = "jenisKelamin", nullable = false)
     private Integer jenis_kelamin;
 
-    @OneToMany(mappedBy = "spesialisasi_dokter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Spesialisasi_Dokter> listSpesialisasiDokter;
+    @OneToMany(mappedBy = "listDokter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<JadwalJagaModel> listJadwalJaga;
 
-    @OneToMany(mappedBy = "jadwal_jaga", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Jadwal_Jaga> listJadwalJaga;
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "spesialisasiDokter",
+            joinColumns = @JoinColumn(name = "idDokter"),
+            inverseJoinColumns = @JoinColumn(name = "idSpesialisasi")
+    )
+    private List<SpesialisasiModel> listSpesialisasi;
 
-    //Getter and Setter
-    public Long getId() {
-        return id;
+    //Setter dan Getter
+    public Long getIdDokter() {
+        return idDokter;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdDokter(Long idDokter) {
+        this.idDokter = idDokter;
     }
 
     public String getNama() {
@@ -103,5 +111,21 @@ public class Dokter implements Serializable {
 
     public void setJenis_kelamin(Integer jenis_kelamin) {
         this.jenis_kelamin = jenis_kelamin;
+    }
+
+    public List<JadwalJagaModel> getListJadwalJaga() {
+        return listJadwalJaga;
+    }
+
+    public void setListJadwalJaga(List<JadwalJagaModel> listJadwalJaga) {
+        this.listJadwalJaga = listJadwalJaga;
+    }
+
+    public List<SpesialisasiModel> getListSpesialisasi() {
+        return listSpesialisasi;
+    }
+
+    public void setListSpesialisasi(List<SpesialisasiModel> listSpesialisasi) {
+        this.listSpesialisasi = listSpesialisasi;
     }
 }

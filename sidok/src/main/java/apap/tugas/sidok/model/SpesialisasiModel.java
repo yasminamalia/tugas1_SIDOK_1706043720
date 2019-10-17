@@ -8,31 +8,31 @@ import java.util.List;
 
 @Entity
 @Table(name = "spesialisasi")
-public class Spesialisasi implements Serializable {
+public class SpesialisasiModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idSpesialisasi;
 
     @NotNull
-    @Size(255)
+    @Size(max = 255)
     @Column(name = "nama", nullable = false)
     private String nama;
 
     @NotNull
-    @Size(255)
-    @Column(name = "nama", nullable = false)
+    @Size(max = 255)
+    @Column(name = "gelar", nullable = false)
     private String gelar;
 
-    @OneToMany(mappedBy = "spesialisasi_dokter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Spesialisasi_Dokter> listSpesialisasiDokter;
+    @ManyToMany(mappedBy = "listSpesialisasi")
+    private List<DokterModel> dokterList;
 
-    //Getter and Setter
-    public Long getId() {
-        return id;
+    //Setter dan Getter
+    public Long getIdSpesialisasi() {
+        return idSpesialisasi;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdSpesialisasi(Long idSpesialisasi) {
+        this.idSpesialisasi = idSpesialisasi;
     }
 
     public String getNama() {
@@ -49,5 +49,13 @@ public class Spesialisasi implements Serializable {
 
     public void setGelar(String gelar) {
         this.gelar = gelar;
+    }
+
+    public List<DokterModel> getDokterList() {
+        return dokterList;
+    }
+
+    public void setDokterList(List<DokterModel> dokterList) {
+        this.dokterList = dokterList;
     }
 }
